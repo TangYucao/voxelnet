@@ -36,8 +36,8 @@ class RPN3D(object):
         self.beta = beta
         self.avail_gpus = avail_gpus
 
-        boundaries = [80, 120]
-        values = [ self.learning_rate, self.learning_rate * 0.1, self.learning_rate * 0.01 ]
+        boundaries = [150]#tyc
+        values = [ self.learning_rate*10, self.learning_rate ]#tyc
         lr = tf.train.piecewise_constant(self.epoch, boundaries, values)
 
         # build graph
@@ -56,7 +56,7 @@ class RPN3D(object):
 
         self.delta_output = []
         self.prob_output = []
-        self.opt = tf.train.AdamOptimizer(lr)
+        self.opt = tf.train.GradientDescentOptimizer(lr)
         self.gradient_norm = []
         self.tower_grads = []
         with tf.variable_scope(tf.get_variable_scope()):

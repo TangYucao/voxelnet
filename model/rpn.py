@@ -44,7 +44,7 @@ class MiddleAndRPN:
 
             # rpn
             # block1:
-            temp_conv = ConvMD(2, 128, 128, 3, (2, 2), (1, 1),
+            temp_conv = ConvMD(2, 128, 128, 3, (1, 1), (1, 1),#tyc : Pedestrian and Cyclist
                                temp_conv, training=self.training, name='conv4')
             temp_conv = ConvMD(2, 128, 128, 3, (1, 1), (1, 1),
                                temp_conv, training=self.training, name='conv5')
@@ -89,7 +89,7 @@ class MiddleAndRPN:
 
             # final:
             temp_conv = tf.concat([deconv3, deconv2, deconv1], -1)
-            # Probability score map, scale = [None, 200/100, 176/120, 2]
+            # Probability score map, scale = [None, 200/100, 176/120, 2]#tyc scale = [None, 200/200,176/240,2]
             p_map = ConvMD(2, 768, 2, 1, (1, 1), (0, 0), temp_conv,
                            training=self.training, activation=False, bn=False, name='conv20')
             # Regression(residual) map, scale = [None, 200/100, 176/120, 14]
